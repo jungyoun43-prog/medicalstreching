@@ -1,0 +1,194 @@
+[
+  {
+    "id": "N1",
+    "description": "정상 케이스 — 거북목, 도구 있음, 시간 여유",
+    "expected": "PASS",
+    "input": {
+      "age": 24, "sex": "F",
+      "condition_suspected": "거북목",
+      "pain": {"site": "목/어깨", "nrs": 3, "radiating": false},
+      "red_flags": {"numbness": false, "night_pain": false, "recent_trauma": false},
+      "conditions": [],
+      "goal": "자세 교정 + 통증 완화",
+      "equipment": ["폼롤러", "밴드"],
+      "time_per_day_min": 15,
+      "level": "beginner"
+    }
+  },
+  {
+    "id": "N2",
+    "description": "정상 케이스 — 라운드숄더, 중급자",
+    "expected": "PASS",
+    "input": {
+      "age": 29, "sex": "M",
+      "condition_suspected": "라운드숄더",
+      "pain": {"site": "어깨", "nrs": 2, "radiating": false},
+      "red_flags": {"numbness": false, "night_pain": false, "recent_trauma": false},
+      "conditions": [],
+      "goal": "자세 교정",
+      "equipment": ["밴드"],
+      "time_per_day_min": 20,
+      "level": "intermediate"
+    }
+  },
+  {
+    "id": "N3",
+    "description": "정상 케이스 — 경도 척추측만(자가보고), 도구 없음",
+    "expected": "PASS",
+    "input": {
+      "age": 17, "sex": "F",
+      "condition_suspected": "척추측만",
+      "pain": {"site": "등/허리", "nrs": 1, "radiating": false},
+      "red_flags": {"numbness": false, "night_pain": false, "recent_trauma": false},
+      "conditions": [],
+      "goal": "체형 교정",
+      "equipment": [],
+      "time_per_day_min": 20,
+      "level": "beginner"
+    }
+  },
+  {
+    "id": "N4",
+    "description": "정상 케이스 — 거북목, 수건 보유, 중급자",
+    "expected": "PASS",
+    "input": {
+      "age": 35, "sex": "M",
+      "condition_suspected": "거북목",
+      "pain": {"site": "목", "nrs": 4, "radiating": false},
+      "red_flags": {"numbness": false, "night_pain": false, "recent_trauma": false},
+      "conditions": [],
+      "goal": "통증 완화",
+      "equipment": ["수건"],
+      "time_per_day_min": 25,
+      "level": "intermediate"
+    }
+  },
+  {
+    "id": "R1",
+    "description": "Red flag — 팔 저림 동반 (신경 증상)",
+    "expected": "REFER",
+    "input": {
+      "age": 41, "sex": "M",
+      "condition_suspected": "거북목",
+      "pain": {"site": "목/팔", "nrs": 5, "radiating": true},
+      "red_flags": {"numbness": true, "night_pain": false, "recent_trauma": false},
+      "conditions": [],
+      "goal": "통증 완화",
+      "equipment": [],
+      "time_per_day_min": 20,
+      "level": "beginner"
+    }
+  },
+  {
+    "id": "R2",
+    "description": "Red flag — 심한 통증 (NRS 8)",
+    "expected": "REFER",
+    "input": {
+      "age": 27, "sex": "F",
+      "condition_suspected": "라운드숄더",
+      "pain": {"site": "어깨", "nrs": 8, "radiating": false},
+      "red_flags": {"numbness": false, "night_pain": false, "recent_trauma": false},
+      "conditions": [],
+      "goal": "통증 완화",
+      "equipment": ["밴드"],
+      "time_per_day_min": 30,
+      "level": "beginner"
+    }
+  },
+  {
+    "id": "T1",
+    "description": "제약 케이스 — 라운드숄더, 도구 전혀 없음",
+    "expected": "PASS",
+    "input": {
+      "age": 31, "sex": "F",
+      "condition_suspected": "라운드숄더",
+      "pain": {"site": "어깨/등", "nrs": 3, "radiating": false},
+      "red_flags": {"numbness": false, "night_pain": false, "recent_trauma": false},
+      "conditions": [],
+      "goal": "자세 교정",
+      "equipment": [],
+      "time_per_day_min": 15,
+      "level": "beginner"
+    }
+  },
+  {
+    "id": "T2",
+    "description": "제약 케이스 — 거북목, 하루 12분만 가능",
+    "expected": "PASS",
+    "input": {
+      "age": 26, "sex": "M",
+      "condition_suspected": "거북목",
+      "pain": {"site": "목", "nrs": 2, "radiating": false},
+      "red_flags": {"numbness": false, "night_pain": false, "recent_trauma": false},
+      "conditions": [],
+      "goal": "자세 교정",
+      "equipment": [],
+      "time_per_day_min": 12,
+      "level": "beginner"
+    }
+  },
+  {
+    "id": "C1",
+    "description": "금기 케이스 — 라운드숄더 + 어깨 충돌증후군 (1차 실패 → 루프 → 통과 기대)",
+    "expected": "REVISED",
+    "input": {
+      "age": 38, "sex": "M",
+      "condition_suspected": "라운드숄더",
+      "pain": {"site": "어깨", "nrs": 4, "radiating": false},
+      "red_flags": {"numbness": false, "night_pain": false, "recent_trauma": false},
+      "conditions": ["어깨 충돌증후군"],
+      "goal": "자세 교정",
+      "equipment": ["밴드", "폼롤러"],
+      "time_per_day_min": 20,
+      "level": "beginner"
+    }
+  },
+  {
+    "id": "C2",
+    "description": "금기 케이스 — 척추측만 + 손목/무릎 통증 (네발기기 계열 제외 필요)",
+    "expected": "REVISED",
+    "input": {
+      "age": 45, "sex": "F",
+      "condition_suspected": "척추측만",
+      "pain": {"site": "등/허리", "nrs": 3, "radiating": false},
+      "red_flags": {"numbness": false, "night_pain": false, "recent_trauma": false},
+      "conditions": ["손목 통증", "무릎 통증"],
+      "goal": "체형 교정",
+      "equipment": [],
+      "time_per_day_min": 20,
+      "level": "beginner"
+    }
+  },
+  {
+    "id": "I1",
+    "description": "충족 불가 — 거북목 + 어지럼증·고혈압, 도구 없음, 10분 (안전 후보로 시간 내 구성 불가)",
+    "expected": "FAIL",
+    "input": {
+      "age": 58, "sex": "F",
+      "condition_suspected": "거북목",
+      "pain": {"site": "목", "nrs": 3, "radiating": false},
+      "red_flags": {"numbness": false, "night_pain": false, "recent_trauma": false},
+      "conditions": ["어지럼증", "고혈압"],
+      "goal": "통증 완화",
+      "equipment": [],
+      "time_per_day_min": 10,
+      "level": "beginner"
+    }
+  },
+  {
+    "id": "I2",
+    "description": "충족 불가 — 라운드숄더, 하루 8분 (최소 프로그램 시간 초과)",
+    "expected": "FAIL",
+    "input": {
+      "age": 22, "sex": "M",
+      "condition_suspected": "라운드숄더",
+      "pain": {"site": "어깨", "nrs": 2, "radiating": false},
+      "red_flags": {"numbness": false, "night_pain": false, "recent_trauma": false},
+      "conditions": [],
+      "goal": "자세 교정",
+      "equipment": [],
+      "time_per_day_min": 8,
+      "level": "beginner"
+    }
+  }
+]

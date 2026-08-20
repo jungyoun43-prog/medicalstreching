@@ -1,0 +1,6 @@
+langgraph>=0.2
+
+# LLM 모드(선택) — API 키가 있을 때만 필요
+langchain>=0.3
+langchain-anthropic>=0.3
+# OpenAI를 쓰려면: langchain-openai>=0.2
