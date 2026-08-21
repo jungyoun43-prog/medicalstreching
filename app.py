@@ -6,10 +6,14 @@
 API 키 없이 오프라인(규칙 기반) 모드로 동작하며,
 ANTHROPIC_API_KEY 설정 시 Composer가 LLM 모드로 전환된다.
 """
+from pathlib import Path
+
 import streamlit as st
 
 from graph.nodes import DISCLAIMER
 from graph.workflow import run
+
+DATA_DIR = Path(__file__).resolve().parent / "data"
 
 CONDITION_VOCAB = [
     "어깨 충돌증후군", "손목 통증", "무릎 통증",
@@ -90,12 +94,15 @@ if submitted:
         st.subheader(f"📋 맞춤 교정운동 프로그램 — 총 {total}분, {len(program)}개")
         for i, e in enumerate(program, 1):
             with st.container(border=True):
-                left, right = st.columns([3, 1])
-                left.markdown(f"**{i}. {e['name']}**")
-                right.markdown(f"`{e['type']}` · {e['duration_min']}분")
-                st.markdown(f"**처방** {e['dose']}")
-                st.markdown(f"**방법** {e['cues']}")
+                img, body = st.columns([1, 2])
+                img_path = DATA_DIR / e["image"]
+                if img_path.exists():
+                    img.image(str(img_path), use_container_width=True)
+                body.markdown(f"**{i}. {e['name']}**  \n"
+                              f"`{e['type']}` · {e['duration_min']}분")
+                body.markdown(f"**처방** {e['dose']}")
+                body.markdown(f"**방법** {e['cues']}")
                 if e["equipment"]:
-                    st.markdown(f"**도구** {', '.join(e['equipment'])}")
+                    body.markdown(f"**도구** {', '.join(e['equipment'])}")
 
     st.warning(f"⚠ {DISCLAIMER}")

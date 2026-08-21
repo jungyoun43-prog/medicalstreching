@@ -10,8 +10,27 @@ API 키가 있으면 LangChain 경유로 Claude를 사용한다.
 import json
 import os
 import re
+from pathlib import Path
 
 DEFAULT_MODEL = "anthropic:claude-opus-5"
+
+
+def _load_dotenv() -> None:
+    """프로젝트 루트의 .env 파일에서 환경변수를 읽는다 (예: ANTHROPIC_API_KEY=...).
+
+    .env는 .gitignore에 포함되어 있어 저장소에 올라가지 않는다.
+    """
+    env_path = Path(__file__).resolve().parent.parent / ".env"
+    if not env_path.exists():
+        return
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            key, value = line.split("=", 1)
+            os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+
+
+_load_dotenv()
 
 
 def get_llm():
