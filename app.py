@@ -6,6 +6,7 @@
 API 키 없이 오프라인(규칙 기반) 모드로 동작하며,
 ANTHROPIC_API_KEY 설정 시 Composer가 LLM 모드로 전환된다.
 """
+import os
 from pathlib import Path
 
 import streamlit as st
@@ -14,6 +15,16 @@ from graph.nodes import DISCLAIMER
 from graph.workflow import run
 
 DATA_DIR = Path(__file__).resolve().parent / "data"
+
+# Streamlit Cloud 배포 시: Secrets에 등록한 키를 환경변수로 주입
+# (로컬에서는 프로젝트 루트의 .env를 tools/llm.py가 읽는다)
+try:
+    if "ANTHROPIC_API_KEY" in st.secrets:
+        os.environ.setdefault("ANTHROPIC_API_KEY", st.secrets["ANTHROPIC_API_KEY"])
+except Exception:
+    pass  # secrets 파일이 없는 로컬 환경
+
+LLM_READY = bool(os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("OPENAI_API_KEY"))
 
 CONDITION_VOCAB = [
     "어깨 충돌증후군", "손목 통증", "무릎 통증",
@@ -36,8 +47,8 @@ RESULT_STYLE = {
 st.set_page_config(page_title="체형교정 운동처방 Agent", page_icon="🧘", layout="centered")
 
 st.title("🧘 체형교정 운동처방 Agent")
-st.caption("Medical AI Study 1조 · 생성 → 안전성 검증 → 재시도 루프 데모 "
-           "(오프라인 모드 — API 키 불필요)")
+_mode = "🤖 LLM 모드 (Claude Composer)" if LLM_READY else "⚙️ 오프라인 모드 (규칙 기반 Composer — API 키 미설정)"
+st.caption(f"Medical AI Study 1조 · 생성 → 안전성 검증 → 재시도 루프 데모 · {_mode}")
 
 with st.form("intake"):
     st.subheader("1. 기본 정보")
