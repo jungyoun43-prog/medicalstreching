@@ -19,7 +19,10 @@
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
-# 데모 (API 키 불필요 — 오프라인 규칙 기반 Composer로 동작)
+# 웹 UI 데모 (API 키 불필요)
+.venv/bin/streamlit run app.py           # http://localhost:8501
+
+# CLI 데모
 .venv/bin/python main.py --list          # 테스트 케이스 12개 목록
 .venv/bin/python main.py --case N1       # 성공 사례
 .venv/bin/python main.py --case R1       # red flag 분기 사례
@@ -62,6 +65,7 @@ Input → Intake Parser → Red Flag Screening ─(위험)→ 🏥 REFER
 | `tools/` | DB 검색, 입력 정규화, Composer, LLM 연동 | Retrieval / Tool |
 | `graph/` | LangGraph State·Node·Edge·Loop | Agent Workflow |
 | `eval/` | Safety Validator, 평가 스크립트 | Evaluation |
+| `app.py` | Streamlit 웹 UI (설문 폼 + 결과 카드 + 실행 로그) | Integration |
 | `main.py` | CLI 데모, 출력 카드 | Integration |
 
 브랜치 규칙: `main`에서 역할별 브랜치(`feat/data`, `feat/tool`, `feat/graph`, `feat/eval`, `feat/integration`)를 따고 PR로 병합.
@@ -71,4 +75,4 @@ Input → Intake Parser → Red Flag Screening ─(위험)→ 🏥 REFER
 - [ ] `data/assets/` 운동 이미지 추가 (현재 placeholder 경로만 존재)
 - [ ] 자연어 설문 입력 → Intake Parser LLM 파싱
 - [ ] Europe PMC API로 운동별 근거 논문 첨부
-- [ ] Streamlit UI
+- [ ] Streamlit Community Cloud 배포 (GitHub 연동)
